@@ -23,7 +23,7 @@ function GenerateFunction() {
             }
         }
         catch (e) {
-            alert('Exception!');
+            alert('Exception!' + e);
         }
     }
 }
