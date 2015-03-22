@@ -9,7 +9,8 @@ var pool = mysql.createPool({
     user: 'markakarle',
     password: 'markisawesome',
     database: 'nashvilledb',
-    debug: false
+    debug: false,
+    multipleStatements : true
 });
 function handle_database(req, res) {
 
