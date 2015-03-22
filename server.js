@@ -21,12 +21,12 @@ function handle_database(req, res) {
             return;
         }
         var resRows = null;
-        connection.query("SELECT * FROM `Restaurants` WHERE `ID` >= (SELECT FLOOR( MAX(`ID`) * RAND()) FROM `Restaurants` ) LIMIT 1;", function (err, rows) {
+        connection.query("SET @r := (SELECT FLOOR(RAND() * (SELECT COUNT(*) FROM Restaurants)));SET @sql := CONCAT('SELECT * FROM Restaurants LIMIT 1 OFFSET ', @r);PREPARE stmt1 FROM @sql;EXECUTE stmt1;", function (err, rows) {
             if (!err) {
                 resRows = rows;
             }
         });
-        connection.query("SELECT * FROM `Activities` WHERE `ID` >= (SELECT FLOOR( MAX(`ID`) * RAND()) FROM `Activities` ) LIMIT 1;", function (err, rows) {
+        connection.query("SET @r := (SELECT FLOOR(RAND() * (SELECT COUNT(*) FROM Activities)));SET @sql := CONCAT('SELECT * FROM Activities LIMIT 1 OFFSET ', @r);PREPARE stmt1 FROM @sql;EXECUTE stmt1;", function (err, rows) {
             connection.release();
             if (!err) {
                 resRows = resRows.concat(rows);
