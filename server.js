@@ -50,8 +50,8 @@ app.get('/', function (req, res) {
 	res.sendFile(p);
 });
 app.get('/generate', function (req, res) {
-    // handle_database(req, res);
-    res.send("o");
+    handle_database(req, res);
+//    res.send("o");
 })
 var server = app.listen(20000, function (){
 	var host = server.address().address;
