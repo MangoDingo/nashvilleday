@@ -17,7 +17,7 @@ function handle_database(req, res) {
         if (err) {
             console.log(err);
             res.json({ "code": 100, "status": "Error in connection database" });
-            connection.release();
+           // connection.release();
             return;
         }
         var resRows = null;
@@ -50,9 +50,10 @@ app.get('/', function (req, res) {
 	res.sendFile(p);
 });
 app.get('/generate', function (req, res) {
-    handle_database(req, res);
+    // handle_database(req, res);
+    res.send("hello");
 })
-var server = app.listen(8888, function (){
+var server = app.listen(20000, function (){
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log('Server listening at http://%s:%s', host, port);
