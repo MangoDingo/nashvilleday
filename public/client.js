@@ -9,9 +9,8 @@ function GenerateFunction() {
         try {
             if (http.readyState === 4) {
                 if (http.status === 200) {
-                   // response = JSON.parse(http.responseText);
+                    response = JSON.parse(http.responseText);
                     document.getElementById("outputWrapper").hidden = "";
-                    document.getElementById("generated").innerHTML = http.responseText;
                     document.getElementById("restName").innerHTML = response[0].Name;
                     document.getElementById("restType").innerHTML = response[0].Type;
                     document.getElementById("activity").innerHTML = response[1].Activity
