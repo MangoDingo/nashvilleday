@@ -7,6 +7,7 @@ package pingrequest;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
+
+
 
 /**
  *
@@ -35,12 +38,19 @@ public class PingRequest {
         http.sendGet();
         
         System.out.println("\n Test 2 - Send HTTP POST request");
-        http.sendPost();
+        //http.sendPost();
+        
     }
     
     // HTTP GET request
     private void sendGet() throws Exception {
-        String url = "https://www.eventbriteapi.com/v3/events/search/";
+        //String url = "https://www.eventbriteapi.com/v3/events/search/";
+//        String url = "https://www.eventbriteapi.com/v3/events/search/"
+//                + "?venue.city=Nashville&"
+//                + "start_date.range_start=2015-03-21T00%3A00%3A15Z&"
+//                + "start_date.range_end=2015-03-22T23%3A00%3A58Z&"
+//                + "token=R6S4OYQLAPWB7WKIID3D" ;
+        String url = "https://www.eventbriteapi.com/v3/events/search/?q=mark&venue.city=nashville&start_date.range_start=2015-03-21T23%3A19%3A48Z&start_date.range_end=2015-03-22T23%3A19%3A54Z&token=R6S4OYQLAPWB7WKIID3D";
         
         URL obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
@@ -53,13 +63,13 @@ public class PingRequest {
         connection.setRequestMethod("GET");
         
         // add request header
-        connection.setRequestProperty("Authorization", "bearer +" + USER_TOKEN);
-        connection.setRequestProperty("q", query);
-        connection.setRequestProperty("venue.city", city);
-        connection.setRequestProperty("start_date.range_start=", 
-                dateFormatter(true));
-        connection.setRequestProperty("start_date.range_end=", 
-                dateFormatter(false));
+//        connection.setRequestProperty("Authorization", "Bearer +" + USER_TOKEN);
+//        connection.setRequestProperty("q", query);
+//        connection.setRequestProperty("venue.city", city);
+//        connection.setRequestProperty("start_date.range_start=",
+//                dateFormatter(true));
+//        connection.setRequestProperty("start_date.range_end=",
+//                dateFormatter(false));
         
         int responseCode = connection.getResponseCode();
         System.out.println("\n Sending 'GET' request to URL: " + url);
@@ -68,7 +78,7 @@ public class PingRequest {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(connection.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
         
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
@@ -123,9 +133,9 @@ public class PingRequest {
     // returns query string for HTTP requests
     // start and end dates are in UTC format
     private String formatParams(String city, String token) {
-//        return "?venue.city=" + city + 
-//                "&start_date.range_start=" + dateFormatter(true) + 
-//                "&start_date.range_end" + dateFormatter(false) + 
+//        return "?venue.city=" + city +
+//                "&start_date.range_start=" + dateFormatter(true) +
+//                "&start_date.range_end" + dateFormatter(false) +
 //                "&token=" + token;
         return "?venue.city=Nashville&start_date.range_start=2015-03-21T00%3"
                 + "A00%3A15Z&start_date.range_end=2015-03-22T23%3A00%3A58Z&"
@@ -147,9 +157,9 @@ public class PingRequest {
     }
     
     private String getDate() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");    
-        Date date = new Date(); 
-        return dateFormat.format(date); 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
     
 }
