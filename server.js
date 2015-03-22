@@ -51,7 +51,7 @@ app.get('/', function (req, res) {
 });
 app.get('/generate', function (req, res) {
     // handle_database(req, res);
-    res.send("hello");
+    res.send("o");
 })
 var server = app.listen(20000, function (){
 	var host = server.address().address;
